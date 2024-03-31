@@ -23,7 +23,7 @@ def test_product_initialization():
 
 def test_product_count():
     Category.total_categories = 0
-    Category.unique_products = set()
+    Category.__unique_products = set()
     category = Category("Электроника", "Электронные устройства и гаджеты")
     laptop = Product("Ноутбук", "Мощный ноутбук для работы и игр", 1000, 10)
     tablet = Product("Планшет", "Портативный планшет для мультимедиа", 500, 5)
