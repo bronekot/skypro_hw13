@@ -31,7 +31,5 @@ class Category:
     def total_unique_products(cls):
         return len(cls.__unique_products)
 
-
-
     def __str__(self):
         return f"Категория: {self.name} ({self.description})"
