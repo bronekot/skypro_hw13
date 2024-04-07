@@ -20,5 +20,8 @@ class Product:
         self.price = new_price
         print("Цена изменена")
 
+    def __add__(self, other):
+        return self.price * self.quantity + other.price * other.quantity
+
     def __str__(self):
         return f"Товар: {self.name} ({self.description}) - Цена: {self.price}, Количество: {self.quantity}"
