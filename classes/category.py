@@ -9,20 +9,26 @@ class Category:
     def __init__(self, name: str, description: str):
         self.name = name
         self.description = description
-        self.products: List[Product] = []
+        self.__products: List[Product] = []
         Category.total_categories += 1
 
     def add_product(self, product: Product):
-        self.products.append(product)
+        for p in self.__products:
+            if p.name == product.name:
+                if p.price < product.price:
+                    p.set_price(product.price)
+                p.quantity += product.quantity
+                return
+        self.__products.append(product)
         if product not in Category.__unique_products:
             Category.__unique_products.add(product)
 
     def get_products(self):
-        for product in self.products:
+        for product in self.__products:
             print(product)
 
     def remove_product(self, product: Product):
-        self.products.remove(product)
+        self.__products.remove(product)
         if product.quantity == 0:
             Category.__unique_products.remove(product)
 

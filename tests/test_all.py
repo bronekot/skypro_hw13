@@ -59,3 +59,28 @@ def test_lower_price_no_confirmation(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr('builtins.input', lambda _: 'n')
     product.set_price(50)
     assert product.price == 100  # Проверка, что цена не изменилась без подтверждения
+
+def test_add_product():
+    category = Category("Test Category", "Test Description")
+    product1 = Product("Product1", "Description", 10, 1)
+    product2 = Product("Product2", "Description", 20, 1)
+
+    # Adding a new product
+    category.add_product(product1)
+    assert product1 in category._Category__products
+    assert product1 in Category._Category__unique_products
+
+    # Adding a product with the same name but higher price
+    category.add_product(Product("Product1", "New Description", 15, 2))
+    assert product1.price == 15
+    assert product1.quantity == 3
+
+    # Adding a product with the same name but lower price
+    category.add_product(Product("Product1", "Lower Price", 5, 1))
+    assert product1.price == 15  # Price should remain unchanged
+    assert product1.quantity == 4
+
+    # Adding a completely new product
+    category.add_product(product2)
+    assert product2 in category._Category__products
+    assert product2 in Category._Category__unique_products
