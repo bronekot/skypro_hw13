@@ -1,14 +1,15 @@
 import pytest
+
+
 from classes.category import Category
 from classes.product import Product
 
-import main
 
 def test_category_initialization():
     category = Category("Электроника", "Электронные устройства и гаджеты")
     assert category.name == "Электроника"
     assert category.description == "Электронные устройства и гаджеты"
-    assert len(category.products) == 0
+    assert len(category._Category__products) == 0
     assert Category.total_categories == 1
     assert Category.total_unique_products == 0
 
@@ -29,7 +30,7 @@ def test_product_count():
     tablet = Product("Планшет", "Портативный планшет для мультимедиа", 500, 5)
     category.add_product(laptop)
     category.add_product(tablet)
-    assert len(category.products) == 2
+    assert len(category._Category__products) == 2
     assert Category.total_unique_products == 2
 
 
@@ -38,3 +39,23 @@ def test_category_count():
     category1 = Category("Электроника", "Электронные устройства и гаджеты")
     category2 = Category("Книги", "Книги для чтения")
     assert Category.total_categories == 2
+
+
+def test_negative_price():
+    product = Product("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
+    product.set_price(-50)
+    assert product.price == 100  # Проверка, что цена осталась прежней
+
+
+def test_lower_price_confirmation(monkeypatch: pytest.MonkeyPatch):
+    product = Product("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
+    monkeypatch.setattr('builtins.input', lambda _: 'y')
+    product.set_price(50)
+    assert product.price == 50  # Проверка, что цена изменилась при подтверждении
+
+
+def test_lower_price_no_confirmation(monkeypatch: pytest.MonkeyPatch):
+    product = Product("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
+    monkeypatch.setattr('builtins.input', lambda _: 'n')
+    product.set_price(50)
+    assert product.price == 100  # Проверка, что цена не изменилась без подтверждения
