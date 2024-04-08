@@ -16,7 +16,7 @@ class Category:
         for p in self.__products:
             if p.name == product.name:
                 if p.price < product.price:
-                    p.set_price(product.price)
+                    p.price = product.price
                 p.quantity += product.quantity
                 return
         self.__products.append(product)
