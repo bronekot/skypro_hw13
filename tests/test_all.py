@@ -26,8 +26,8 @@ def test_product_count():
     Category.total_categories = 0
     Category.__unique_products = set()
     category = Category("Электроника", "Электронные устройства и гаджеты")
-    laptop = Product("Ноутбук", "Мощный ноутбук для работы и игр", 1000, 10)
-    tablet = Product("Планшет", "Портативный планшет для мультимедиа", 500, 5)
+    laptop = Product.new("Ноутбук", "Мощный ноутбук для работы и игр", 1000, 10)
+    tablet = Product.new("Планшет", "Портативный планшет для мультимедиа", 500, 5)
     category.add_product(laptop)
     category.add_product(tablet)
     assert len(category._Category__products) == 2
@@ -42,33 +42,34 @@ def test_category_count():
 
 
 def test_negative_price():
-    product = Product("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
-    product.set_price(-50)
+    product = Product.new("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
+    product.price = -50
     assert product.price == 100  # Проверка, что цена осталась прежней
 
 
 def test_lower_price_confirmation(monkeypatch: pytest.MonkeyPatch):
-    product = Product("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
+    product = Product.new("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
     monkeypatch.setattr('builtins.input', lambda _: 'y')
-    product.set_price(50)
+    product.price = 50
     assert product.price == 50  # Проверка, что цена изменилась при подтверждении
 
 
 def test_lower_price_no_confirmation(monkeypatch: pytest.MonkeyPatch):
-    product = Product("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
+    product = Product.new("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
     monkeypatch.setattr('builtins.input', lambda _: 'n')
-    product.set_price(50)
+    product.price = 50
     assert product.price == 100  # Проверка, что цена не изменилась без подтверждения
+
 
 def test_add_product():
     category = Category("Test Category", "Test Description")
-    product1 = Product("Product1", "Description", 10, 1)
-    product2 = Product("Product2", "Description", 20, 1)
+    product1 = Product.new("Product1", "Description", 10, 1)
+    product2 = Product.new("Product2", "Description", 20, 1)
 
     # Adding a new product
     category.add_product(product1)
     assert product1 in category._Category__products
-    assert product1 in Category._Category__unique_products
+    assert product1.name in Category._Category__unique_products
 
     # Adding a product with the same name but higher price
     category.add_product(Product("Product1", "New Description", 15, 2))
@@ -83,4 +84,4 @@ def test_add_product():
     # Adding a completely new product
     category.add_product(product2)
     assert product2 in category._Category__products
-    assert product2 in Category._Category__unique_products
+    assert product2.name in Category._Category__unique_products
