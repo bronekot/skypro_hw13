@@ -6,10 +6,10 @@ class Category:
     total_categories = 0
     __unique_products = set()
 
-    def __init__(self, name: str, description: str):
+    def __init__(self, name: str, description: str, products: List[Product] = []):
         self.name = name
         self.description = description
-        self.__products: List[Product] = []
+        self.__products: List[Product] = products
         Category.total_categories += 1
 
     def add_product(self, product: Product):
@@ -20,17 +20,18 @@ class Category:
                 p.quantity += product.quantity
                 return
         self.__products.append(product)
-        if product not in Category.__unique_products:
-            Category.__unique_products.add(product)
+        if product.name not in Category.__unique_products:
+            Category.__unique_products.add(product.name)
 
-    def get_products(self):
+    @property
+    def products(self):
         for product in self.__products:
             print(product)
 
     def remove_product(self, product: Product):
         self.__products.remove(product)
         if product.quantity == 0:
-            Category.__unique_products.remove(product)
+            Category.__unique_products.remove(product.name)
 
     @classmethod
     @property
