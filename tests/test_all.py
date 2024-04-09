@@ -11,7 +11,7 @@ def test_category_initialization():
     assert category.description == "Электронные устройства и гаджеты"
     assert len(category._Category__products) == 0
     assert Category.total_categories == 1
-    assert Category.total_unique_products == 0
+    assert Category.total_unique_products() == 0
 
 
 def test_product_initialization():
@@ -31,7 +31,7 @@ def test_product_count():
     category.add_product(laptop)
     category.add_product(tablet)
     assert len(category._Category__products) == 2
-    assert Category.total_unique_products == 2
+    assert Category.total_unique_products() == 2
 
 
 def test_category_count():

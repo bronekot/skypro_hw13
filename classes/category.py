@@ -1,5 +1,5 @@
 from typing import List
-from .product import Product
+from classes.product import Product
 
 
 class Category:
@@ -34,7 +34,6 @@ class Category:
             Category.__unique_products.remove(product.name)
 
     @classmethod
-    @property
     def total_unique_products(cls):
         return len(cls.__unique_products)
 
