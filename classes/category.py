@@ -14,7 +14,7 @@ class Category:
         Category.__unique_products += len(products)
 
     def add_product(self, product: Product):
-        if product is not isinstance(Product):
+        if not issubclass(Product, type(product)):
             raise ValueError("Требуется объект типа Product")
         for p in self.__products:
             if p.name == product.name:
