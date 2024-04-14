@@ -11,7 +11,8 @@ class Category:
         self.description = description
         self.__products: List[Product] = products
         Category.total_categories += 1
-        Category.__unique_products += len(products)
+        for p in products:
+            self.add_product(p)
 
     def add_product(self, product: Product):
         for p in self.__products:
