@@ -15,6 +15,8 @@ class Category:
             self.add_product(p)
 
     def add_product(self, product: Product):
+        if not issubclass(Product, type(product)):
+            raise ValueError("Требуется объект типа Product")
         for p in self.__products:
             if p.name == product.name:
                 if p.price < product.price:
