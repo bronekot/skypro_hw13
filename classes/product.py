@@ -37,7 +37,34 @@ class Product(Products):
         print("Цена изменена")
 
     def __add__(self, other):
+        if type(other) is type(self):
+            raise ValueError("Нельзя сложить разные типы продуктов")
         return self.price * self.quantity + other.price * other.quantity
 
     def __str__(self):
         return f"Товар: {self.name} ({self.description}) - Цена: {self.__price}, Количество: {self.quantity}"
+
+
+# производительность,
+# модель,
+# объем встроенной памяти,
+# цвет.
+class Smartphone(Product):
+
+    def __init__(self, name, description, price, perfomance, model, memory, color, quantity):
+        super().__init__(name, description, price, quantity)
+        self.perfomance = perfomance
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+# страна-производитель,
+# срок прорастания,
+# цвет.
+class LawnGrass(Product):
+
+    def __init__(self, name, description, price, country, germination_period, color, quantity):
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
