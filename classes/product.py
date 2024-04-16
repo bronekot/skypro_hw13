@@ -37,7 +37,7 @@ class Product(Products):
         print("Цена изменена")
 
     def __add__(self, other):
-        if type(other) is type(self):
+        if isinstance(other, self.__class__):
             raise ValueError("Нельзя сложить разные типы продуктов")
         return self.price * self.quantity + other.price * other.quantity
 
