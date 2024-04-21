@@ -1,4 +1,16 @@
-class Product:
+
+from abc import ABC, abstractmethod
+
+from classes.mixins import mixinRepr
+
+
+class Products(ABC):
+    @abstractmethod
+    def price(self):
+        pass
+
+
+class Product(Products, mixinRepr):
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
@@ -27,7 +39,7 @@ class Product:
         print("Цена изменена")
 
     def __add__(self, other):
-        if type(other) is type(self):
+        if isinstance(other, self.__class__):
             raise ValueError("Нельзя сложить разные типы продуктов")
         return self.price * self.quantity + other.price * other.quantity
 
@@ -47,6 +59,7 @@ class Smartphone(Product):
         self.model = model
         self.memory = memory
         self.color = color
+
 
 # страна-производитель,
 # срок прорастания,

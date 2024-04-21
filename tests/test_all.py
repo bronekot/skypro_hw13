@@ -89,3 +89,12 @@ def test_add_product():
     category.add_product(product2)
     assert product2 in category._Category__products
     assert unique_products + 2 == Category.total_unique_products()
+
+
+def test_product_repr():
+    product = Product("TestProduct", "Test Description", 50, 2)
+    product.color = "Red"
+
+    expected_repr = f"Product(TestProduct, Test Description, 50, 2, Red)"
+
+    assert repr(product) == expected_repr
