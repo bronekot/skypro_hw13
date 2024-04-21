@@ -1,6 +1,8 @@
 
 from abc import ABC, abstractmethod
 
+from classes.mixins import mixinRepr
+
 
 class Products(ABC):
     @abstractmethod
@@ -8,7 +10,7 @@ class Products(ABC):
         pass
 
 
-class Product(Products):
+class Product(Products, mixinRepr):
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
@@ -57,6 +59,7 @@ class Smartphone(Product):
         self.model = model
         self.memory = memory
         self.color = color
+
 
 # страна-производитель,
 # срок прорастания,
