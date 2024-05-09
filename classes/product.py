@@ -16,6 +16,9 @@ class Product(Products, mixinRepr):
         self.description = description
         self.__price = price
         self.quantity = quantity
+        if quantity == 0:
+            print("товар с нулевым количеством не может быть добавлен")
+            raise ValueError
 
     @staticmethod
     def new(name, description, price, quantity):
