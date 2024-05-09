@@ -26,6 +26,15 @@ class Category:
         self.__products.append(product)
         Category.__unique_products += 1
 
+    def average_price(self):
+        summ = 0
+        for p in self.__products:
+            summ += p.price
+        try:
+            return summ / len(self.__products)
+        except ZeroDivisionError:
+            return 0
+
     @property
     def products(self):
         for product in self.__products:
