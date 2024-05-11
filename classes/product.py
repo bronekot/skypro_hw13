@@ -47,7 +47,8 @@ class Product(Products, mixinRepr):
         return self.price * self.quantity + other.price * other.quantity
 
     def __str__(self):
-        return f"Товар: {self.name} ({self.description}) - Цена: {self.__price}, Количество: {self.quantity}"
+        return (f"Товар: {self.name} ({self.description}) - "
+                f"Цена: {self.__price}, Количество: {self.quantity}")
 
 
 # производительность,
@@ -56,7 +57,8 @@ class Product(Products, mixinRepr):
 # цвет.
 class Smartphone(Product):
 
-    def __init__(self, name, description, price, perfomance, model, memory, color, quantity):
+    def __init__(self, name, description, price, perfomance, model, memory, color,
+                 quantity):
         super().__init__(name, description, price, quantity)
         self.perfomance = perfomance
         self.model = model
@@ -69,7 +71,8 @@ class Smartphone(Product):
 # цвет.
 class LawnGrass(Product):
 
-    def __init__(self, name, description, price, country, germination_period, color, quantity):
+    def __init__(self, name, description, price, country, germination_period, color,
+                 quantity):
         super().__init__(name, description, price, quantity)
         self.country = country
         self.germination_period = germination_period

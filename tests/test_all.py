@@ -42,20 +42,20 @@ def test_category_count():
 
 
 def test_negative_price():
-    product = Product.new("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
+    product = Product.new("Test Product", "Description", 100, 1)
     product.price = -50
     assert product.price == 100  # Проверка, что цена осталась прежней
 
 
 def test_lower_price_confirmation(monkeypatch: pytest.MonkeyPatch):
-    product = Product.new("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
+    product = Product.new("Test Product", "Description", 100, 1)
     monkeypatch.setattr('builtins.input', lambda _: 'y')
     product.price = 50
     assert product.price == 50  # Проверка, что цена изменилась при подтверждении
 
 
 def test_lower_price_no_confirmation(monkeypatch: pytest.MonkeyPatch):
-    product = Product.new("Test Product", "Description", 100, 1)  # Здесь подставьте ваш класс и начальную цену
+    product = Product.new("Test Product", "Description", 100, 1)
     monkeypatch.setattr('builtins.input', lambda _: 'n')
     product.price = 50
     assert product.price == 100  # Проверка, что цена не изменилась без подтверждения
@@ -95,6 +95,6 @@ def test_product_repr():
     product = Product("TestProduct", "Test Description", 50, 2)
     product.color = "Red"
 
-    expected_repr = f"Product(TestProduct, Test Description, 50, 2, Red)"
+    expected_repr = "Product(TestProduct, Test Description, 50, 2, Red)"
 
     assert repr(product) == expected_repr
