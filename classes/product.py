@@ -12,13 +12,13 @@ class Products(ABC):
 
 class Product(Products, mixinRepr):
     def __init__(self, name, description, price, quantity):
+        if quantity == 0:
+            print("товар с нулевым количеством не может быть добавлен")
+            raise ValueError
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
-        if quantity == 0:
-            print("товар с нулевым количеством не может быть добавлен")
-            raise ValueError
 
     @staticmethod
     def new(name, description, price, quantity):
