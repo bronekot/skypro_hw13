@@ -36,8 +36,8 @@ def test_product_count():
 
 def test_category_count():
     Category.total_categories = 0
-    category1 = Category("Электроника", "Электронные устройства и гаджеты")
-    category2 = Category("Книги", "Книги для чтения")
+    Category("Электроника", "Электронные устройства и гаджеты")
+    Category("Книги", "Книги для чтения")
     assert Category.total_categories == 2
 
 

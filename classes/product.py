@@ -20,6 +20,7 @@ class Product(Products, mixinRepr):
         self.__price = price
         self.quantity = quantity
 
+
     @staticmethod
     def new(name, description, price, quantity):
         return Product(name, description, price, quantity)
